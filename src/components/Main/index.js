@@ -7,10 +7,11 @@ import Filter from './Filter';
 
 import api from '../../services/api';
 
-export default function Main() {
+export default function Main(props) {
   const [tool, setTool] = useState([]);
   const [searchTagOnly, setSearchTagOnly] = useState(false);
   const [search, setSearch] = useState('');
+  const { id } = props;
 
   useEffect(() => {
     api.get('/tools').then(res => {
@@ -24,6 +25,7 @@ export default function Main() {
 
     setSearchTagOnly(value);
   }
+
   function handleChange(event) {
     setSearch(event.target.value);
   }
@@ -35,6 +37,26 @@ export default function Main() {
         setTool(res.data);
       });
   }, [search, searchTagOnly]);
+
+  function handleRemove(id) {
+    api.delete(`/tools/${id}`).then(res => {
+      window.location.href = '/';
+    });
+  }
+
+  function handleSubmit({ title, link, description, tags }) {
+    const newtags = tags.split(', ');
+    api
+      .post(`/tools/`, {
+        title,
+        link,
+        description,
+        tags: newtags,
+      })
+      .then(res => {
+        window.location.href = '/';
+      });
+  }
 
   return (
     <>
@@ -48,9 +70,9 @@ export default function Main() {
             handleInputChange={handleInputChange}
             search={search}
           />
-          <AddItem />
+          <AddItem handleSubmit={handleSubmit} />
         </Actions>
-        <List tool={tool} />
+        <List tool={tool} handleRemove={handleRemove} id={id} />
       </Container>
     </>
   );

@@ -108,7 +108,7 @@ export const ButtonAddItem = styled.button`
     background-color: #10b26c;
   }
 `;
-export const FormModal = styled.form`
+export const FormContainer = styled.div`
   input,
   textarea {
     display: block;

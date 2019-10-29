@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { Form, Input, Textarea } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { FormModal, ButtonAddItem } from './styles';
+import { ButtonAddItem, FormContainer } from './styles';
 import IconClose from '../../icons/Close 2px.svg';
 
 const customStyles = {
@@ -16,74 +18,66 @@ const customStyles = {
   },
 };
 
-class AddItem extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      modalIsOpen: false,
-    };
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+function AddItem(props) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { handleSubmit } = props;
+  function openModal() {
+    setModalIsOpen(true);
   }
-
-  openModal() {
-    this.setState({ modalIsOpen: true });
+  function closeModal() {
+    setModalIsOpen(false);
   }
-
-  closeModal() {
-    this.setState({ modalIsOpen: false });
-  }
-
-  render() {
-    const { modalIsOpen } = this.state;
-    return (
-      <div>
-        <ButtonAddItem type="button" onClick={this.openModal}>
-          Add
-        </ButtonAddItem>
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          overlayClassName="Overlay"
-          contentLabel="Example Modal"
-        >
-          <h3>Add new tool</h3>
-          <button
-            type="button"
-            className="closeButton"
-            onClick={this.closeModal}
-          >
-            <img src={IconClose} alt="Close Modal" />
-          </button>
-          <FormModal>
+  return (
+    <div>
+      <ButtonAddItem type="button" onClick={openModal}>
+        Add
+      </ButtonAddItem>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        overlayClassName="Overlay"
+        contentLabel="Example Modal"
+      >
+        <h3>Add new tool</h3>
+        <button type="button" className="closeButton" onClick={closeModal}>
+          <img src={IconClose} alt="Close Modal" />
+        </button>
+        <Form onSubmit={handleSubmit}>
+          <FormContainer>
             <label>
               Tool name <br />
-              <input type="text" placeholder="Tool Name" />
+              <Input name="title" type="text" placeholder="Tool Name" />
             </label>
             <label>
               Tool Link <br />
-              <input type="text" placeholder="Tool link" />
+              <Input name="link" type="text" placeholder="Tool link" />
             </label>
             <label>
               Tool Description <br />
-              <textarea type="text" placeholder="Tool Description" />
+              <Textarea
+                name="description"
+                type="text"
+                placeholder="Tool Description"
+              />
             </label>
             <label>
               Tags <br />
-              <input type="text" placeholder="Tags" />
+              <Input name="tags" type="text" placeholder="Tags" />
             </label>
             <br />
             <br />
-            <input type="submit" value="Add Tool" className="button" />
-          </FormModal>
-        </Modal>
-      </div>
-    );
-  }
+            <button type="submit" value="Add Tool" className="button">
+              Add Tool
+            </button>
+          </FormContainer>
+        </Form>
+      </Modal>
+    </div>
+  );
 }
 
+AddItem.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
 export default AddItem;

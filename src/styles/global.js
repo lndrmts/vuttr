@@ -66,6 +66,9 @@ export default createGlobalStyle`
     letter-spacing: 0.36px;
     color: #FFFFFF;
     opacity: 1;
+    border: none;
+    padding: 14px 22px;
+    cursor: pointer;
   }
   .IconMostSmallest { width: 10px;}
   .IconSmallest { width: 12px;}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Item from './item';
 
 function List(props) {
-  const { tool } = props;
+  const { tool, handleRemove } = props;
   const toolSize = useMemo(() => tool.length, [tool]);
   return (
     <>
@@ -12,11 +12,13 @@ function List(props) {
         <div>
           {tool.map(t => (
             <Item
-              key={t.title}
+              key={t.id}
               title={t.title}
               description={t.description}
               tags={t.tags}
               link={t.link}
+              id={t.id}
+              handleRemove={handleRemove}
             />
           ))}
         </div>
@@ -28,7 +30,8 @@ function List(props) {
 }
 
 List.propTypes = {
-  tool: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tool: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleRemove: PropTypes.func.isRequired,
 };
 
 export default List;

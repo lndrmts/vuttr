@@ -5,11 +5,11 @@ import { ListItem } from './styles';
 import RemoveItem from './removeItem';
 
 function Item(props) {
-  const { title, description, tags, link } = props;
+  const { title, description, tags, link, handleRemove, id } = props;
   return (
     <>
       <ListItem>
-        <RemoveItem />
+        <RemoveItem handleRemove={handleRemove} id={id} />
         <h1>
           <a href={link} rel="noopener noreferrer" target="_blank">
             {title}
@@ -17,8 +17,8 @@ function Item(props) {
         </h1>
         <p>{description}</p>
         <p>
-          {tags.map(tag => (
-            <strong className="tag" key={tag}>
+          {tags.map((tag, index) => (
+            <strong className="tag" key={index}>
               #{tag}
             </strong>
           ))}
@@ -30,7 +30,9 @@ function Item(props) {
 Item.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   link: PropTypes.string.isRequired,
+  handleRemove: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
 export default Item;

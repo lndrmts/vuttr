@@ -40,6 +40,7 @@ class RemoveItem extends Component {
 
   render() {
     const { modalIsOpen } = this.state;
+    const { handleRemove, id } = this.props;
     return (
       <div>
         <RemoveButton onClick={this.openModal}>
@@ -71,7 +72,11 @@ class RemoveItem extends Component {
             >
               Cancelar
             </button>
-            <button type="button" className="removeButton">
+            <button
+              onClick={() => handleRemove(id)}
+              type="button"
+              className="removeButton"
+            >
               Yes, remove
             </button>
           </GroupButtons>
