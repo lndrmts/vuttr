@@ -47,11 +47,16 @@ function AddItem(props) {
           <FormContainer>
             <label>
               Tool name <br />
-              <Input name="title" type="text" placeholder="Tool Name" />
+              <Input
+                name="title"
+                type="text"
+                placeholder="Tool Name"
+                required
+              />
             </label>
             <label>
               Tool Link <br />
-              <Input name="link" type="text" placeholder="Tool link" />
+              <Input name="link" type="text" placeholder="Tool link" required />
             </label>
             <label>
               Tool Description <br />
@@ -59,11 +64,12 @@ function AddItem(props) {
                 name="description"
                 type="text"
                 placeholder="Tool Description"
+                required
               />
             </label>
             <label>
               Tags <br />
-              <Input name="tags" type="text" placeholder="Tags" />
+              <Input name="tags" type="text" placeholder="Tags" required />
             </label>
             <br />
             <br />

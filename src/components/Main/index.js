@@ -11,23 +11,27 @@ export default function Main(props) {
   const [tool, setTool] = useState([]);
   const [searchTagOnly, setSearchTagOnly] = useState(false);
   const [search, setSearch] = useState('');
+  const [messageSuccess, setMessageSuccess] = useState(false);
   const { id } = props;
 
+  // List all tools
   useEffect(() => {
     api.get('/tools').then(res => {
       setTool(res.data);
     });
   }, []);
 
+  // Search All
+  function handleChange(event) {
+    setSearch(event.target.value);
+  }
+
+  // Search in tags only
   function handleInputChange(event) {
     const { target } = event;
     const value = target.type === 'checkbox' ? target.checked : true;
 
     setSearchTagOnly(value);
-  }
-
-  function handleChange(event) {
-    setSearch(event.target.value);
   }
 
   useEffect(() => {
@@ -38,12 +42,14 @@ export default function Main(props) {
       });
   }, [search, searchTagOnly]);
 
+  // Remove Tools ID
   function handleRemove(id) {
     api.delete(`/tools/${id}`).then(res => {
       window.location.href = '/';
     });
   }
 
+  // Add new Tool
   function handleSubmit({ title, link, description, tags }) {
     const newtags = tags.split(', ');
     api
@@ -57,7 +63,6 @@ export default function Main(props) {
         window.location.href = '/';
       });
   }
-
   return (
     <>
       <Container>

@@ -136,3 +136,10 @@ export const GroupButtons = styled.div`
     margin-left: 15px;
   }
 `;
+export const MessageContainer = styled.div`
+  height: 50px;
+  background-color: #12db89;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
