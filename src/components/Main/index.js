@@ -11,7 +11,6 @@ export default function Main(props) {
   const [tool, setTool] = useState([]);
   const [searchTagOnly, setSearchTagOnly] = useState(false);
   const [search, setSearch] = useState('');
-  const [messageSuccess, setMessageSuccess] = useState(false);
   const { id } = props;
 
   // List all tools
